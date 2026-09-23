@@ -1,21 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    
-    <title>login</title>
-</head>     
+    <title>Login</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            text-align: center;
+        }
+
+        h1 {
+            color: #302b63;
+            margin-top: 30px;
+        }
+
+        /* Theme buttons */
+        .theme {
+            text-align: right;
+            margin: 15px 30px;
+        }
+
+        .theme button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .light {
+            background-color: white;
+            color: #302b63;
+        }
+
+        .dark {
+            background-color: #302b63;
+            color: white;
+        }
+
+        form {
+            background-color: white;
+            width: 350px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            color: #302b63;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            background-color: #8e44ad;
+        }
+
+        input[type="reset"] {
+            background-color: #302b63;
+            margin-left: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #732d91;
+        }
+
+        input[type="reset"]:hover {
+            background-color: #201c4a;
+        }
+
+        /* Dark theme */
+        body.dark-mode {
+            background-color: #222;
+        }
+
+        body.dark-mode h1 {
+            color: white;
+        }
+
+        body.dark-mode form {
+            background-color: #333;
+        }
+
+        body.dark-mode label {
+            color: white;
+        }
+    </style>
+</head>
+
 <body>
-    {% include 'navbar.html' %}
-    <h2>login form</h2> 
-    <form id="login" action="/login" method="post" >   
-    <label>username:</label>
-    <input type="text" id="username" name="username" required>
-    <br><br>
-    <label>password:</label>
-    <input type="password" id="password" name="password" required>
-    <br><br>
-    <input type="submit" value="login">
-    <input type="reset" value="reset">
+
+    <!-- Theme buttons -->
+    <div class="theme">
+        <button class="light" onclick="lightTheme()">☀ Light</button>
+        <button class="dark" onclick="darkTheme()">🌙 Dark</button>
+    </div>
+
+    <h1>Login form</h1>
+
+    <form id="loginform" action="/login" method="post">
+
+        <label>Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <br><br>
+
+        <label>Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <br><br>
+
+        <input type="submit" value="Login">
+        <input type="reset" value="Reset">
+
+        <br><br>
+
+        <a href="/register">New user? Register here</a>
+
     </form>
+
+    <script>
+
+        function lightTheme() {
+
+            document.body.classList.remove("dark-mode");
+
+            // Save theme in browser cookie
+            document.cookie = "theme=light; path=/";
+        }
+
+
+        function darkTheme() {
+
+            document.body.classList.add("dark-mode");
+
+            // Save theme in browser cookie
+            document.cookie = "theme=dark; path=/";
+        }
+
+
+        // Read saved theme from cookie
+        let cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+
+            let parts = cookie.trim().split("=");
+
+            if (parts[0] == "theme" && parts[1] == "dark") {
+
+                document.body.classList.add("dark-mode");
+
+            }
+
+        }
+
+    </script>
+
 </body>
 </html>
